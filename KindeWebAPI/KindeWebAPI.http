@@ -1,0 +1,6 @@
+@KindeWebAPI_HostAddress = http://localhost:5238
+
+GET {{KindeWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
