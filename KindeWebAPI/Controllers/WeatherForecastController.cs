@@ -9,8 +9,8 @@ namespace KindeWebAPI.Controllers
   {
     private static readonly string[] Summaries = new[]
     {
-          "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-      };
+      "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
 
     private readonly ILogger<WeatherForecastController> _logger;
 
@@ -26,12 +26,12 @@ namespace KindeWebAPI.Controllers
     {
       var user = HttpContext.User;
       return Enumerable.Range(1, 4).Select(index => new WeatherForecast
-      {
-        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-        TemperatureC = Random.Shared.Next(-20, 55),
-        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-      })
-      .ToArray();
+        {
+          Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+          TemperatureC = Random.Shared.Next(-20, 55),
+          Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        })
+        .ToArray();
     }
 
     [Authorize(Policy = "ReadWeatherPermission")]
@@ -39,12 +39,12 @@ namespace KindeWebAPI.Controllers
     public IEnumerable<WeatherForecast> GetPermissionProtected()
     {
       return Enumerable.Range(1, 2).Select(index => new WeatherForecast
-      {
-        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-        TemperatureC = Random.Shared.Next(-20, 0),
-        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-      })
-      .ToArray();
+        {
+          Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+          TemperatureC = Random.Shared.Next(-20, 0),
+          Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        })
+        .ToArray();
     }
 
     [Authorize(Policy = "AdminRole")]
@@ -52,24 +52,24 @@ namespace KindeWebAPI.Controllers
     public IEnumerable<WeatherForecast> GetRoleProtected()
     {
       return Enumerable.Range(1, 3).Select(index => new WeatherForecast
-      {
-        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-        TemperatureC = Random.Shared.Next(30, 45),
-        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-      })
-      .ToArray();
+        {
+          Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+          TemperatureC = Random.Shared.Next(30, 45),
+          Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        })
+        .ToArray();
     }
 
     [HttpGet("Public", Name = "GetWeatherForecastPublic")]
     public IEnumerable<WeatherForecast> GetPublic()
     {
       return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-      {
-        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-        TemperatureC = Random.Shared.Next(16, 32),
-        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-      })
-      .ToArray();
+        {
+          Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+          TemperatureC = Random.Shared.Next(16, 32),
+          Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        })
+        .ToArray();
     }
   }
 }

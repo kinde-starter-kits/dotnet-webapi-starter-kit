@@ -11,26 +11,26 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-      // These two lines map the Kinde user ID to Identity.Name (optional).
-      options.MapInboundClaims = false;
-      options.TokenValidationParameters.NameClaimType = "sub";
-    });
+  .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+  .AddJwtBearer(options =>
+  {
+    // These two lines map the Kinde user ID to Identity.Name (optional).
+    options.MapInboundClaims = false;
+    options.TokenValidationParameters.NameClaimType = "sub";
+  });
 
 builder.Services
-    .AddAuthorization(options =>
-    {
-      options.AddPolicy("ReadWeatherPermission",
-        policy => policy.RequireAssertion(
-          context => context.User.Claims.Any(c => c.Type == "permissions" && c.Value == "read:weather")
-        ));
-      options.AddPolicy("AdminRole",
-        policy => policy.RequireAssertion(
-          context => context.User.Claims.Any(c => c.Type == "roles" && c.Value == "admin")
-        ));
-    });
+  .AddAuthorization(options =>
+  {
+    options.AddPolicy("ReadWeatherPermission",
+      policy => policy.RequireAssertion(
+        context => context.User.Claims.Any(c => c.Type == "permissions" && c.Value == "read:weather")
+      ));
+    options.AddPolicy("AdminRole",
+      policy => policy.RequireAssertion(
+        context => context.User.Claims.Any(c => c.Type == "roles" && c.Value == "admin")
+      ));
+  });
 
 var app = builder.Build();
 
