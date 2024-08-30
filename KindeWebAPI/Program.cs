@@ -67,7 +67,7 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI(c =>
   {
-    c.OAuthClientId("<frontend-app-client-id>");
+    c.OAuthClientId(builder.Configuration["Swagger:ClientId"]);
     c.OAuthAdditionalQueryStringParams(new Dictionary<string, string>
       { { "audience", builder.Configuration["Authentication:Schemes:Bearer:ValidAudiences:0"] ?? "" } });
     c.OAuthUsePkce();
