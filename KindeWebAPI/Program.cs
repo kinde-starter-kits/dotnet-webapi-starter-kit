@@ -18,15 +18,8 @@ builder.Services.AddSwaggerGen(options =>
     "oidc",
     new OpenApiSecurityScheme
     {
-      Type = SecuritySchemeType.OAuth2,
-      Flows = new OpenApiOAuthFlows
-      {
-        AuthorizationCode = new OpenApiOAuthFlow
-        {
-          AuthorizationUrl = new Uri(authority + "/authorize"),
-          TokenUrl = new Uri(authority + "/oauth2/token")
-        }
-      }
+      Type = SecuritySchemeType.OpenIdConnect,
+      OpenIdConnectUrl = new Uri(authority + "/.well-known/openid-configuration")
     }
   );
 
