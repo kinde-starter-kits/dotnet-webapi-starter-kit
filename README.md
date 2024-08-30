@@ -1,4 +1,4 @@
-# Kinde Starter Kit - ASP.NET Core API
+# Kinde Starter Kit - ASP.NET Core based API
 
 The Kinde Starter Kit for ASP.NET Core based APIs.
 
@@ -18,9 +18,7 @@ Modify `appsettings.json`, replace `<your-domain>` with your Kinde domain and `<
 
 If you would like to obtain acccess tokens via the Swagger UI for development you will be redirected to Kinde to authenticate. After you have logged in or registered you will be redirected back to your local Swagger UI.
 
-You need to specify in Kinde which url you would like your user to be redirected to in order to authenticate your app.
-
-On the `Settings -> Applications -> Frontend app` page add `https://localhost:7179/swagger/oauth2-redirect.html` to `Allowed callback URLs`.
+You need to allow the callback of Swagger UI in Kinde, on the `Settings -> Applications -> Frontend app` page add `https://localhost:7179/swagger/oauth2-redirect.html` to `Allowed callback URLs`.
 
 > Important! This is required to successfully log in to your app.
 
