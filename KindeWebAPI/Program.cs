@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +11,40 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+  var authority = builder.Configuration["Authentication:Schemes:Bearer:Authority"];
+  options.AddSecurityDefinition(
+    "oidc",
+    new OpenApiSecurityScheme
+    {
+      Type = SecuritySchemeType.OAuth2,
+      Flows = new OpenApiOAuthFlows
+      {
+        AuthorizationCode = new OpenApiOAuthFlow
+        {
+          AuthorizationUrl = new Uri(authority + "/authorize"),
+          TokenUrl = new Uri(authority + "/oauth2/token")
+        }
+      }
+    }
+  );
+
+  options.AddSecurityRequirement(
+    new OpenApiSecurityRequirement
+    {
+      {
+        new OpenApiSecurityScheme
+        {
+          Reference = new OpenApiReference
+            { Type = ReferenceType.SecurityScheme, Id = "oidc" },
+        },
+        new string[] { }
+      }
+    }
+  );
+});
+
 
 builder.Services
   .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -38,7 +74,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();
-  app.UseSwaggerUI();
+  app.UseSwaggerUI(c =>
+  {
+    c.OAuthClientId("<frontend-app-client-id>");
+    c.OAuthAdditionalQueryStringParams(new Dictionary<string, string>
+      { { "audience", builder.Configuration["Authentication:Schemes:Bearer:ValidAudiences:0"] ?? "" } });
+    c.OAuthUsePkce();
+  });
 }
 
 app.UseHttpsRedirection();
