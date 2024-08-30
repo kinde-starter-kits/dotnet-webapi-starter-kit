@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
-using Microsoft.OpenApi.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +28,7 @@ builder.Services.AddSwaggerGen(options =>
         new OpenApiSecurityScheme
         {
           Reference = new OpenApiReference
-            { Type = ReferenceType.SecurityScheme, Id = "oidc" },
+            { Type = ReferenceType.SecurityScheme, Id = "oidc" }
         },
         new string[] { }
       }
