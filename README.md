@@ -1,6 +1,6 @@
 # Kinde Starter Kit - ASP.NET Core based API
 
-The Kinde Starter Kit for ASP.NET Core based APIs.
+The Kinde Starter Kit for ASP.NET Core based APIs.  This project contains examples of controller-based and minimal APIs secured with a bearer access token.
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com) [![Kinde Docs](https://img.shields.io/badge/Kinde-Docs-eee?style=flat-square)](https://kinde.com/docs/developer-tools) [![Kinde Community](https://img.shields.io/badge/Kinde-Community-eee?style=flat-square)](https://thekindecommunity.slack.com)
 

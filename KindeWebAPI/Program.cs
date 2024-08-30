@@ -83,6 +83,10 @@ app.MapControllers();
 // Minimal API examples
 app.MapGet("/Minimal/Public", () => "Hello world!");
 app.MapGet("/Minimal/Protected", (ClaimsPrincipal user) => "Hello " + user?.Identity?.Name)
+  .RequireAuthorization();
+app.MapGet("/Minimal/PermissionProtected", (ClaimsPrincipal user) => "Hello " + user?.Identity?.Name)
   .RequireAuthorization("ReadWeatherPermission");
+app.MapGet("/Minimal/RoleProtected", (ClaimsPrincipal user) => "Hello " + user?.Identity?.Name)
+  .RequireAuthorization("AdminRole");
 
 app.Run();
